@@ -1,0 +1,25 @@
+:global {
+  /*
+  *   Config
+  */
+  @import 'config/colors';
+
+  /*
+  *   Utils
+  */
+  @import 'utils/mixins';
+  @import 'utils/breakpoints';
+  @import 'utils/fonts';
+
+  /*
+  *   Resets
+  */
+  @import '~normalize.css/normalize';
+  @import 'base';
+
+  /*
+  *   Partials
+  */
+  @import 'partials/header';
+  @import 'partials/footer';
+}
