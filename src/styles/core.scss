@@ -1,3 +1,26 @@
+@font-face {
+  font-family: Cinnabar;
+  src: url('../fonts/cinnabar.eot'),
+  url('../fonts/cinnabar.woff2') format('woff2'),
+  url('../fonts/cinnabar.woff') format('woff'),
+  url('../fonts/Cinnabar.ttf') format('truetype');
+  font-style: normal;
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: custom-Montserrat;
+  src: url('../fonts/montserrat-light.eot'),
+  url('../fonts/montserrat-light.woff2') format('woff2'),
+  url('../fonts/montserrat-light.woff') format('woff'),
+  url('../fonts/montserrat-light.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 300;
+}
+
+$cinnabar: Cinnabar, sans-serif;
+$montserrat: custom-Montserrat, sans-serif;
+
 :global {
   /*
   *   Config
@@ -16,10 +39,13 @@
   */
   @import '~normalize.css/normalize';
   @import 'base';
+  @import 'config/bootstrap_custom';
+  @import 'general';
 
   /*
   *   Partials
   */
-  @import 'partials/header';
-  @import 'partials/footer';
+  @import 'partials/timeline';
+  @import 'partials/game';
+  @import 'partials/signup';
 }
