@@ -1,8 +1,10 @@
 import '../styles/core.scss'
 import domready from 'domready'
 import Promise from 'bluebird'
+import 'gsap'
 
-const dbg = debug('app:main')
+import Loader from './Loader'
+import LoginPage from './LoginPage'
 
 if (!__PROD__) {
   Promise.config({
@@ -13,8 +15,13 @@ if (!__PROD__) {
   })
 }
 
+const loader = new Loader()
+const loginPage = new LoginPage()
+
 domready(() => {
-  dbg('Ok')
+  loader.hide(loginPage.onEnter.bind(loginPage))
+  // TweenMax.set('.road', {rotationX: 30, transformPerspective: 130, xPercent: -50})
+  // TweenMax.to('.lines', 4, {yPercent: -50, repeat: -1, ease: Linear.easeNone})
 })
 
 if (module.hot) {

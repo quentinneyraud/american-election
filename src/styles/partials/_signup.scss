@@ -1,0 +1,65 @@
+$portrait_height: 500px;
+$portrait_width: 400px;
+
+#signup {
+  background-color: $blue;
+  color: $white;
+
+  .signup {
+
+    &-subtitle, &-portrait, &-popup, &-form {
+       @include autoAlphaZero();
+    }
+
+    &-title {
+      @include center();
+      margin: 0;
+      font-size: 60px;
+      font-family: $cinnabar;
+    }
+
+    &-subtitle {
+      @include center();
+      margin: 0;
+      font-size: 30px;
+      font-family: $montserrat;
+      font-weight: 100;
+      color: rgba(175, 175, 175, 0.5);
+    }
+
+    &-portrait {
+      width: $portrait_width;
+      height: $portrait_height;
+      background: url(../img/profil-template.png) no-repeat;
+      background-size: cover;
+      border: 15px inset $white;
+      @include center();
+    }
+
+    &-popup {
+      position: absolute;
+    }
+
+    &-form {
+      position: absolute;
+      top: calc(100vh - ( 50vh - #{$portrait_height} / 2));
+      left: 50%;
+      transform: translateX(-50%);
+      padding-top: 20px;
+
+      input {
+        display: block;
+        width: 400px;
+        margin-bottom: 10px;
+        transition: border 0.5s ease-in;
+        color: rgba(255, 255, 255, 0.5);
+        border: 1px solid transparent;
+        padding: 10px;
+
+        &:focus {
+          border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+      }
+    }
+  }
+}
