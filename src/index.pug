@@ -36,15 +36,41 @@ html(lang="fr")
         span
 
     .section#signup
-      h1.signup-title - Engagez-vous -
-      p.signup-subtitle Pour commencer, créer un profil
-      .signup-portrait
-      form.signup-form
-        input(type='text', name='name', placeholder='Votre Nom')
-        input(type='text', name='group', placeholder='Votre Parti Politique')
+      .signup-background
+      .signup-overlay
+      .signup-transition
+
+      h1.signup-title - Engage toi -
+
+      p.signup-subtitle Pour commencer, crée toi un profil ...
+
+      .signup-card
+
+        .signup-portrait
+          img.signup-portrait-image(src=require('img/profil-template.png'))
+
+        form.signup-form
+          input(type='text', name='name', placeholder='Ton Nom')
+          input(type='text', name='group', placeholder='Ton Parti Politique')
+
+      a.signup-start Commencer
+
       .signup-popup
-        canvas#signup-canvas
-        video#signup-video(width=500, height=500)
+        canvas#signup-canvas(width=500, height=370)
+        video#signup-video(width=500, height=370)
+        .signup-popup-actions
+          a.signup-popup-exit
+            svg(viewbox='0 0 100 125')
+              g(stroke='none', stroke-width='1', fill-rule='evenodd')
+                g
+                  path(d='M60.6856187,50 L92.7424749,82.0568562 C95.7525084,85.0668896 95.7525084,89.7324415 92.7424749,92.7424749 L92.7424749,92.7424749 C89.7324415,95.7525084 85.0668896,95.7525084 82.0568562,92.7424749 L50,60.6856187 L17.9431438,92.7424749 C14.9331104,95.7525084 10.2675585,95.7525084 7.25752508,92.7424749 C4.24749164,89.7324415 4.24749164,85.0668896 7.25752508,82.0568562 L39.3143813,50 L7.25752508,17.9431438 C4.24749164,14.9331104 4.24749164,10.2675585 7.25752508,7.25752508 C10.2675585,4.24749164 14.9331104,4.24749164 17.9431438,7.25752508 L50,39.3143813 L82.0568562,7.25752508 C85.0668896,4.24749164 89.7324415,4.24749164 92.7424749,7.25752508 C95.7525084,10.2675585 95.7525084,14.9331104 92.7424749,17.9431438 L60.6856187,50 L60.6856187,50 Z')
+
+          a.signup-popup-valid
+            svg(viewbox='0 0 58.2 46.6')
+              g
+                path(d='M21.6,46.6c-1.1,0-2.2-0.5-3.1-1.3L1.3,28c-1.7-1.7-1.7-4.4,0-6.1c1.7-1.7,4.4-1.7,6.1,0l14,14L50.6,1.5\
+                    c1.5-1.8,4.3-2,6.1-0.5c1.8,1.5,2,4.3,0.5,6.1L24.9,45c-0.8,0.9-1.9,1.5-3.1,1.5C21.7,46.6,21.7,46.6,21.6,46.6z')
+
 
     .section#game
       .timeline

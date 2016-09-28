@@ -5,6 +5,7 @@ import 'gsap'
 
 import Loader from './Loader'
 import LoginPage from './LoginPage'
+import GamePage from './GamePage'
 
 if (!__PROD__) {
   Promise.config({
@@ -17,11 +18,12 @@ if (!__PROD__) {
 
 const loader = new Loader()
 const loginPage = new LoginPage()
+const gamePage = new GamePage()
+
+dbg(gamePage)
 
 domready(() => {
   loader.hide(loginPage.onEnter.bind(loginPage))
-  // TweenMax.set('.road', {rotationX: 30, transformPerspective: 130, xPercent: -50})
-  // TweenMax.to('.lines', 4, {yPercent: -50, repeat: -1, ease: Linear.easeNone})
 })
 
 if (module.hot) {
