@@ -32,14 +32,17 @@ const start = () => {
   }
 }
 
+// wait dom ready
 domready(() => {
   state.domReady = true
   start()
 })
 
+// load fonts
 WebFont.load({
   google: {
-    families: ['Montserrat']
+    families: ['Montserrat:400,700'],
+    text: 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ?!.,éèà1234567890'
   },
   classes: false,
   fontactive: () => {
