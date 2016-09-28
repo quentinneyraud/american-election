@@ -1,6 +1,6 @@
 import './lib/SplitText'
 import Portrait from './Portrait'
-import { selectClass, selectId } from 'utils/selector'
+import { selectClass, selectId } from './utils/selector'
 
 const dbg = debug('app:LoginPage')
 const diviserW = window.innerWidth / 20
@@ -10,6 +10,7 @@ export default class LoginPage {
   constructor () {
     dbg('Initialize LoginPage')
     this.portrait = new Portrait()
+    this.leaveCallback = null
 
     this.initializeElements()
     this.initializeEvents()
@@ -45,6 +46,10 @@ export default class LoginPage {
     TweenMax.set(this.$els.splitTitle, {autoAlpha: 0})
   }
 
+  setLeaveCallback (cb) {
+    this.leaveCallback = cb
+  }
+
   onEnter () {
     new TimelineMax()
       .staggerFromTo(this.$els.splitTitle, 0.2, {autoAlpha: 0, scale: 0}, {autoAlpha: 1, scale: 1, ease: Power4.easeIn}, 0.05, 'title_start')
@@ -64,6 +69,7 @@ export default class LoginPage {
     new TimelineMax()
       .staggerTo([this.$els.title, this.$els.card, this.$els.start], Math.random() / 2 + 0.5, {yPercent: -200, ease: Power2.easeIn}, 'transition_start')
       .to(this.$els.signupSection, 0.5, {yPercent: -100, ease: Power2.easeInOut}, 'transition_start')
-      .fromTo(this.$els.gameSection, 0.5, {yPercent: 100, autoAlpha: 0}, {yPercent: 0, autoAlpha: 1, ease: Power2.easeInOut}, 'transition_start')
+      .fromTo(this.$els.gameSection, 0.5, {yPercent: 100}, {yPercent: 0, ease: Power2.easeInOut}, 'transition_start')
+      .call(this.leaveCallback, null, this)
   }
 }

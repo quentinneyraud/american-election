@@ -8,18 +8,7 @@
   font-weight: normal;
 }
 
-@font-face {
-  font-family: custom-Montserrat;
-  src: url('../fonts/montserrat-light.eot'),
-  url('../fonts/montserrat-light.woff2') format('woff2'),
-  url('../fonts/montserrat-light.woff') format('woff'),
-  url('../fonts/montserrat-light.ttf') format('truetype');
-  font-style: normal;
-  font-weight: 300;
-}
-
 $cinnabar: Cinnabar, sans-serif;
-$montserrat: custom-Montserrat, sans-serif;
 
 :global {
   /*
@@ -44,7 +33,6 @@ $montserrat: custom-Montserrat, sans-serif;
   /*
   *   Partials
   */
-  @import 'partials/timeline';
   @import 'partials/game';
   @import 'partials/signup';
 }
