@@ -1,5 +1,6 @@
 #game {
-  display: none;
+  @include autoAlphaZero();
+  transform: translateY(100%);
 }
 
 .sky {
