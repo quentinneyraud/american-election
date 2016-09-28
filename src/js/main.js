@@ -1,12 +1,14 @@
 import '../styles/core.scss'
+import WebFont from 'webfontloader'
 import domready from 'domready'
 import Promise from 'bluebird'
 import 'gsap'
 
 import Loader from './Loader'
-import LoginPage from './LoginPage'
+import SignUpPage from './SignUpPage'
 import GamePage from './GamePage'
 
+// Promise config
 if (!__PROD__) {
   Promise.config({
     warnings: true,
@@ -16,14 +18,34 @@ if (!__PROD__) {
   })
 }
 
+// create objects
 const loader = new Loader()
-const loginPage = new LoginPage()
-const gamePage = new GamePage()
+const gamePage = new GamePage(loader)
+const signUpPage = new SignUpPage()
+signUpPage.setLeaveCallback(gamePage.onEnter.bind(gamePage))
 
-dbg(gamePage)
+// Wait dom ready & fonts ready event
+const state = {domReady: false, fontsReady: false}
+const start = () => {
+  if (state.domReady && state.fontsReady) {
+    loader.hide(signUpPage.onEnter.bind(signUpPage))
+  }
+}
 
 domready(() => {
-  loader.hide(loginPage.onEnter.bind(loginPage))
+  state.domReady = true
+  start()
+})
+
+WebFont.load({
+  google: {
+    families: ['Montserrat']
+  },
+  classes: false,
+  fontactive: () => {
+    state.fontsReady = true
+    start()
+  }
 })
 
 if (module.hot) {
