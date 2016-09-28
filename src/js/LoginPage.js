@@ -1,5 +1,6 @@
 import './lib/SplitText'
 import Portrait from './Portrait'
+import { selectClass, selectId } from 'utils/selector'
 
 const dbg = debug('app:LoginPage')
 const diviserW = window.innerWidth / 20
@@ -17,15 +18,15 @@ export default class LoginPage {
 
   initializeElements () {
     this.$els = {
-      signupSection: document.getElementById('signup'),
-      gameSection: document.getElementById('game'),
+      signupSection: selectId('signup'),
+      gameSection: selectId('game'),
       portrait: document.querySelector('.signup-portrait img'),
-      start: document.getElementsByClassName('signup-start')[0],
-      card: document.getElementsByClassName('signup-card')[0],
-      form: document.getElementsByClassName('signup-form')[0],
-      title: document.getElementsByClassName('signup-title')[0],
-      subtitle: document.getElementsByClassName('signup-subtitle')[0],
-      transition: document.getElementsByClassName('signup-transition')[0]
+      start: selectClass('signup-start'),
+      card: selectClass('signup-card'),
+      form: selectClass('signup-form'),
+      title: selectClass('signup-title'),
+      subtitle: selectClass('signup-subtitle'),
+      transition: selectClass('signup-transition')
     }
     this.$els.splitTitle = new SplitText(this.$els.title, {type: 'chars'}).chars
   }
