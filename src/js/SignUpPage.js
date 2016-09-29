@@ -1,6 +1,6 @@
 import './lib/SplitText'
 import Portrait from './Portrait'
-import { selectClass, selectId } from './utils/selector'
+import { selectClass, selectId } from './utils/index'
 
 const dbg = debug('app:LoginPage')
 const diviserW = window.innerWidth / 20

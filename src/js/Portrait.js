@@ -82,36 +82,6 @@ export default class Portrait {
     this.context.drawImage(this.$els.video, 0, 0)
     this.context.strokeStyle = '#FF0000'
     this.context.ellipse(this.$els.canvas.width / 2, ELLIPSE_TOP, ELLIPSE_WIDTH, ELLIPSE_HEIGHT, Math.PI, 0, 2 * Math.PI)
-    /* this.context.moveTo(311,224);
-    this.context.lineTo(305,217);
-    this.context.moveTo(305,217);
-    this.context.lineTo(300,237);
-    this.context.moveTo(300,237);
-    this.context.lineTo(309,245);
-    this.context.moveTo(309,245);
-    this.context.lineTo(325,293);
-    this.context.moveTo(325,293);
-    this.context.lineTo(356,300);
-    this.context.moveTo(356,300);
-    this.context.lineTo(384,294);
-    this.context.moveTo(384,294);
-    this.context.lineTo(395,252);
-    this.context.moveTo(395,252);
-    this.context.lineTo(405,243);
-    this.context.moveTo(405,243);
-    this.context.lineTo(410,224);
-    this.context.moveTo(410,224);
-    this.context.lineTo(398,229);
-    this.context.moveTo(398,229);
-    this.context.lineTo(399,202);
-    this.context.moveTo(399,202);
-    this.context.lineTo(371,170);
-    this.context.moveTo(371,170);
-    this.context.lineTo(341,169);
-    this.context.moveTo(341,169);
-    this.context.lineTo(315,186);
-    this.context.moveTo(315,186);
-    this.context.lineTo(310,221); */
     this.context.stroke()
 
     rafId = Raf(this.render.bind(this))
@@ -197,7 +167,7 @@ export default class Portrait {
     const context = canvas.getContext('2d')
 
     context.drawImage(img, 0, 0)
-    context.drawImage(canvasSrc, 0, 0)
+    context.drawImage(canvasSrc, 0, 0) // placé à 500 - 352
 
     return {
       canvas,
