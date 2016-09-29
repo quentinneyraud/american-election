@@ -84,7 +84,7 @@ if (__DEV__) {
       logo: 'static/icon.png',
       inject: true,
       emitStats: false,
-      title: 'My awesome App'
+      title: 'Candidat Ninja'
     })
   )
 }

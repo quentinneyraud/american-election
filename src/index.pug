@@ -8,23 +8,23 @@ html(lang="fr")
     meta(name='viewport' content='user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1')
 
     <!--GENERAL INFORMATIONS-->
-    title Webpack Starter Kit
-    meta(name='description' content='A webpack starter kit')
+    title Candidat Ninja
+    meta(name='description' content='')
 
     <!--SOCIAL-->
     <!-- FB -->
     meta(name='og:url' content='')
-    meta(name='og:title' content='Webpack starter kit')
-    meta(name='og:description' content='A webpack starter kit')
+    meta(name='og:title' content='Candidat Ninja')
+    meta(name='og:description' content='')
     meta(name='og:image' content='')
     meta(name='og:type' content='website')
 
     <!-- TWITTER -->
     meta(name='twitter:card' content='summary_large_image')
     meta(name='twitter:site' content='@')
-    meta(name='twitter:creator' content='@')
-    meta(name='twitter:title' content='Webpack starter kit')
-    meta(name='twitter:description' content='A webpack starter kit')
+    meta(name='twitter:creator' content='@quentin_neyraud')
+    meta(name='twitter:title' content='Candidat Ninja')
+    meta(name='twitter:description' content='')
     meta(name='twitter:image' content='')
 
     style.
@@ -40,9 +40,9 @@ html(lang="fr")
       .signup-overlay
       .signup-transition
 
-      h1.signup-title - Engage toi -
+      h1.signup-title - Candidat Ninja -
 
-      p.signup-subtitle Pour commencer, crée toi un profil ...
+      p.signup-subtitle Pour commencer, crée ton candidat ...
 
       .signup-card
 
@@ -51,7 +51,7 @@ html(lang="fr")
 
         form.signup-form
           input(type='text', name='name', placeholder='Ton Nom')
-          input(type='text', name='group', placeholder='Ton Parti Politique')
+          input(type='text', name='side', placeholder='Ton Parti Politique')
 
       a.signup-start Commencer
 
@@ -78,5 +78,14 @@ html(lang="fr")
       p.game-loading En attente
         span.game-loading-dots ...
 
+      .game-instructions
+        p La campagne commence...
+        p Donald Trump, Hillary Clinton et __NAME__ sont à égalité dans les sondages.
+        p Sers-toi de ton smartphone pour couper tes adversaires. Chaque coup porté à un candidat lui fait perdre de la popularité.
+        p Le candidat le plus populaire à la fin de la partie remporte les élections
+
+      p.game-counter 3
+      p.game-counter 2
+      p.game-counter 1
 
     .section#mobile

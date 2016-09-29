@@ -1,5 +1,5 @@
 import socketIo from 'socket.io-client'
-import {getQueryVariable} from '../utils/index'
+import {getQueryVariable, selectId} from '../utils/index'
 import {QUERY_PARAMETER_NAME, SERVER_URL} from '../config'
 
 const dbg = debug('app:MobilePage')
@@ -9,6 +9,9 @@ export default class MobilePage {
     dbg('Initialize MobilePage')
     this.socket = null
     this.roomId = getQueryVariable(QUERY_PARAMETER_NAME)
+
+    this.fixVibrate()
+    this.checkDeviceMotion()
 
     this.initializeElements()
     this.initializeEvents()
@@ -26,6 +29,28 @@ export default class MobilePage {
 
   initializeGsap () {
 
+  }
+
+  fixVibrate () {
+    navigator.vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate
+  }
+
+  checkDeviceMotion () {
+    if (!window.DeviceMotionEvent) {
+      // stop
+    }
+  }
+
+  onDeviceMotion (event) {
+    const {x, y} = event.acceleration
+
+    this.socket.emit('orientation-to-server', {roomId: this.roomId, motionDatas: {x, y}})
+  }
+
+  vibrate (ms = 15) {
+    if (navigator.vibrate) {
+      navigator.vibrate(ms)
+    }
   }
 
   onEnter () {
@@ -46,15 +71,25 @@ export default class MobilePage {
   bindSocketEvents () {
     this.socket.on('connect', this.onSocketConnected.bind(this))
     this.socket.on('room-joined', this.onSocketRoomJoined.bind(this))
+    this.socket.on('can-start', this.onStart.bind(this))
+    this.socket.on('cut', this.onCut.bind(this))
   }
 
   onSocketConnected () {
     dbg('socket connected, emit join-room')
-    this.socket.emit('join-room', {roomId: this.roomId})
+    this.socket.emit('join-room', {roomId: this.roomId, from: 'mobile'})
   }
 
-  onSocketRoomJoined () {
-    dbg('room joined, emit orientation')
-    this.socket.emit('orientation-to-server', {roomId: this.roomId, orientationDatas: 'test'})
+  onStart () {
+    dbg('can start')
+    window.addEventListener('devicemotion', this.onDeviceMotion.bind(this))
+  }
+
+  onCut (datas) {
+    if (datas.type === 'bad') {
+      this.vibrate(100)
+    } else {
+      this.vibrate(15)
+    }
   }
 }

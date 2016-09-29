@@ -1,16 +1,16 @@
 import Raf from 'raf'
 
 const dbg = debug('app:Portrait')
-const ELLIPSE_TOP = 120
-const ELLIPSE_WIDTH = 90
-const ELLIPSE_HEIGHT = 120
+const ELLIPSE_TOP = 140
+const ELLIPSE_WIDTH = 100
+const ELLIPSE_HEIGHT = 140
 let rafId = null
 
 export default class Portrait {
   constructor () {
     dbg('Initialize Portrait')
     Raf.polyfill()
-
+    this.stream = null
     this.initializeElements()
     this.initializeEvents()
     this.initializeGsap()
@@ -68,6 +68,7 @@ export default class Portrait {
 
   hideModal () {
     dbg('hide')
+    this.stream.getTracks()[0].stop()
     window.cancelAnimationFrame(rafId)
     this.openTimeline.timeScale(1.5).reverse()
   }
@@ -75,12 +76,14 @@ export default class Portrait {
   onAuthorizationGranted (stream) {
     this.$els.video.setAttribute('autoplay', true)
     this.$els.video.src = window.URL.createObjectURL(stream)
+    this.stream = stream
     this.render()
   }
 
   render () {
     this.context.drawImage(this.$els.video, 0, 0)
-    this.context.strokeStyle = '#FF0000'
+    this.context.setLineDash([15, 15])
+    this.context.strokeStyle = '#DDDDDD'
     this.context.ellipse(this.$els.canvas.width / 2, ELLIPSE_TOP, ELLIPSE_WIDTH, ELLIPSE_HEIGHT, Math.PI, 0, 2 * Math.PI)
     this.context.stroke()
 
@@ -112,45 +115,10 @@ export default class Portrait {
     context.save()
     context.beginPath()
     context.ellipse(this.$els.canvas.width / 2, ELLIPSE_TOP, ELLIPSE_WIDTH - 2, ELLIPSE_HEIGHT - 2, Math.PI, 0, 2 * Math.PI)
-    /* context.moveTo(311,224);
-    context.lineTo(305,217);
-    context.moveTo(305,217);
-    context.lineTo(300,237);
-    context.moveTo(300,237);
-    context.lineTo(309,245);
-    context.moveTo(309,245);
-    context.lineTo(325,293);
-    context.moveTo(325,293);
-    context.lineTo(356,300);
-    context.moveTo(356,300);
-    context.lineTo(384,294);
-    context.moveTo(384,294);
-    context.lineTo(395,252);
-    context.moveTo(395,252);
-    context.lineTo(405,243);
-    context.moveTo(405,243);
-    context.lineTo(410,224);
-    context.moveTo(410,224);
-    context.lineTo(398,229);
-    context.moveTo(398,229);
-    context.lineTo(399,202);
-    context.moveTo(399,202);
-    context.lineTo(371,170);
-    context.moveTo(371,170);
-    context.lineTo(341,169);
-    context.moveTo(341,169);
-    context.lineTo(315,186);
-    context.moveTo(315,186);
-    context.lineTo(310,221); */
     context.closePath()
     context.clip()
     context.drawImage(this.$els.canvas, 0, 0)
     context.restore()
-
-    /* const ellipseCanvas = document.createElement('canvas')
-    ellipseCanvas.width = ELLIPSE_WIDTH - 2
-    ellipseCanvas.height = ELLIPSE_HEIGHT - 2
-    const ellipseContext = ellipseCanvas.getContext('2d') */
 
     return {
       canvas,
@@ -166,8 +134,8 @@ export default class Portrait {
     canvas.height = img.height
     const context = canvas.getContext('2d')
 
+    context.drawImage(canvasSrc, 30, 0, 500 / 1.5, 370 / 1.5)
     context.drawImage(img, 0, 0)
-    context.drawImage(canvasSrc, 0, 0) // placé à 500 - 352
 
     return {
       canvas,

@@ -1,7 +1,7 @@
 import '../styles/core.scss'
 import WebFont from 'webfontloader'
 import domready from 'domready'
-import Promise from 'bluebird'
+// import Promise from 'bluebird'
 import 'gsap'
 
 import Loader from './Loader'
@@ -11,14 +11,14 @@ import MobilePage from './pages/MobilePage'
 import {isMobile, selectId} from './utils/index'
 
 // Promise config
-if (!__PROD__) {
+/* if (!__PROD__) {
   Promise.config({
     warnings: true,
     longStackTraces: true,
     cancellation: true,
     monitoring: true
   })
-}
+} */
 
 const loader = new Loader()
 
@@ -70,7 +70,7 @@ domready(() => {
 WebFont.load({
   google: {
     families: ['Montserrat:400,700'],
-    text: 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ?!.,>éèà1234567890'
+    text: 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ?!.,>%éèà1234567890'
   },
   classes: false,
   fontactive: () => {

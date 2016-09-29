@@ -1,6 +1,7 @@
 import '../lib/SplitText'
 import Portrait from '../Portrait'
 import { selectClass, selectId } from '../utils/index'
+import User from '../User'
 
 const dbg = debug('app:LoginPage')
 const diviserW = window.innerWidth / 20
@@ -66,6 +67,8 @@ export default class LoginPage {
   }
 
   onStart () {
+    User.setName(document.querySelector('.signup-form input[name=name]').value)
+    User.setSide(document.querySelector('.signup-form input[name=side]'))
     new TimelineMax()
       .staggerTo([this.$els.title, this.$els.card, this.$els.start], Math.random() / 2 + 0.5, {yPercent: -200, ease: Power2.easeIn}, 'transition_start')
       .to(this.$els.signupSection, 0.5, {yPercent: -100, ease: Power2.easeInOut}, 'transition_start')
