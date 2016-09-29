@@ -1,6 +1,6 @@
-import './lib/SplitText'
-import Portrait from './Portrait'
-import { selectClass, selectId } from './utils/index'
+import '../lib/SplitText'
+import Portrait from '../Portrait'
+import { selectClass, selectId } from '../utils/index'
 
 const dbg = debug('app:LoginPage')
 const diviserW = window.innerWidth / 20
@@ -53,7 +53,7 @@ export default class LoginPage {
   onEnter () {
     new TimelineMax()
       .staggerFromTo(this.$els.splitTitle, 0.2, {autoAlpha: 0, scale: 0}, {autoAlpha: 1, scale: 1, ease: Power4.easeIn}, 0.05, 'title_start')
-      .to(this.$els.title, 0.5, {top: '10%', scale: 1, ease: Power4.easeIn, force3D: false}, 'title_start+=1.5')
+      .to(this.$els.title, 0.5, {top: '10%', scale: 1, ease: Power2.easeIn, force3D: false}, 'title_start+=1.5')
       .fromTo(this.$els.subtitle, 0.4, {autoAlpha: 0, y: 20}, {autoAlpha: 1, y: 0, ease: Power3.easeIn}, '+=1')
       .to(this.$els.subtitle, 0.2, {autoAlpha: 0, y: -20}, '+=2')
       .fromTo(this.$els.card, 0.7, {autoAlpha: 0, yPercent: 200}, {autoAlpha: 1, yPercent: -50, ease: Power2.easeOut})

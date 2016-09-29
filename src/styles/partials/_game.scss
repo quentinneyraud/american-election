@@ -1,8 +1,36 @@
 #game {
   transform: translateY(100%);
   background-color: $blue;
+  color: rgba(255, 255, 255, 0.7);
 
-  #test {
+  #qrcode, .game-rule, .game-loading {
+    @include center();
+    @include autoAlphaZero();
+  }
+
+  #qrcode {
     padding: 50px;
+  }
+
+  .game-rule {
+    font-size: 18px;
+    top: 35%;
+
+    span {
+      font-style: italic;
+      background-color: $alphaPurpleMid;
+      padding: 0 10px;
+      margin-left: 5px;
+    }
+  }
+
+  .game-loading {
+    top: 65%;
+    font-size: 16px;
+    font-style: italic;
+
+    span {
+      padding-left: 10px;
+    }
   }
 }

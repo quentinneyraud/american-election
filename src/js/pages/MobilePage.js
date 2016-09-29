@@ -1,5 +1,6 @@
 import socketIo from 'socket.io-client'
-import {getQueryVariable} from './utils/index'
+import {getQueryVariable} from '../utils/index'
+import {QUERY_PARAMETER_NAME, SERVER_URL} from '../config'
 
 const dbg = debug('app:MobilePage')
 
@@ -7,7 +8,7 @@ export default class MobilePage {
   constructor () {
     dbg('Initialize MobilePage')
     this.socket = null
-    this.roomId = getQueryVariable('code')
+    this.roomId = getQueryVariable(QUERY_PARAMETER_NAME)
 
     this.initializeElements()
     this.initializeEvents()
@@ -39,7 +40,7 @@ export default class MobilePage {
 
   connectToSocket () {
     dbg('connect to socket server')
-    this.socket = socketIo('http://localhost:8080')
+    this.socket = socketIo(SERVER_URL)
   }
 
   bindSocketEvents () {
@@ -53,7 +54,7 @@ export default class MobilePage {
   }
 
   onSocketRoomJoined () {
-    dbg('room joined')
+    dbg('room joined, emit orientation')
     this.socket.emit('orientation-to-server', {roomId: this.roomId, orientationDatas: 'test'})
   }
 }

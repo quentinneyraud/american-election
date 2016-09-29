@@ -5,11 +5,10 @@ import Promise from 'bluebird'
 import 'gsap'
 
 import Loader from './Loader'
-import SignUpPage from './SignUpPage'
-import GamePage from './GamePage'
-import MobilePage from './MobilePage'
-import {isMobile} from './utils/index'
-import {selectId} from './utils/index'
+import SignUpPage from './pages/SignUpPage'
+import GamePage from './pages/GamePage'
+import MobilePage from './pages/MobilePage'
+import {isMobile, selectId} from './utils/index'
 
 // Promise config
 if (!__PROD__) {
