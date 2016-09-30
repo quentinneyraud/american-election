@@ -70,7 +70,13 @@
   "dependencies": {
     "bluebird": "^3.4.1",
     "domready": "^1.0.8",
-    "normalize.css": "^4.1.1"
+    "gsap": "^1.19.0",
+    "normalize.css": "^4.1.1",
+    "phaser": "^2.6.2",
+    "qrcodejs2": "0.0.2",
+    "raf": "^3.3.0",
+    "socket.io-client": "^1.4.8",
+    "webfontloader": "^1.6.26"
   },
   "devDependencies": {
     "babel-cli": "^6.5.1",
@@ -98,7 +104,6 @@
     "favicons-webpack-plugin": "0.0.6",
     "file-loader": "^0.8.4",
     "fs-extra": "^0.28.0",
-    "gsap": "^1.19.0",
     "html-webpack-plugin": "^2.7.1",
     "imports-loader": "^0.6.5",
     "isparta-loader": "^2.0.0",
@@ -117,14 +122,10 @@
     "postcss-loader": "^0.8.0",
     "pug": "^2.0.0-beta4",
     "pug-loader": "^2.1.0",
-    "qrcodejs2": "0.0.2",
-    "raf": "^3.3.0",
     "rimraf": "^2.5.1",
     "sass-loader": "^3.0.0",
-    "socket.io-client": "^1.4.8",
     "style-loader": "^0.13.0",
     "url-loader": "^0.5.6",
-    "webfontloader": "^1.6.26",
     "webpack": "^1.12.14",
     "webpack-dev-middleware": "^1.6.1",
     "webpack-hot-middleware": "^2.6.0",
