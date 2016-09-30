@@ -1,0 +1,12 @@
+[
+  {
+    "name": "test",
+    "type": "head",
+    "image": "./ressources/trump0715.png"
+  },
+  {
+    "name": "bomb",
+    "type": "bomb",
+    "image": "./ressources/bomb.png"
+  }
+]

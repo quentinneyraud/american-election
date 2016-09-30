@@ -4,6 +4,7 @@ import {generateRandomId, selectId, selectClass} from '../utils/index'
 import '../lib/SplitText'
 import {QUERY_PARAMETER_NAME, SERVER_URL} from '../config'
 import User from '../User'
+import Game from '../Game/index'
 
 const dbg = debug('app:GamePage')
 let loader = null
@@ -15,11 +16,12 @@ export default class gamePage {
     loader = ploader
     this.roomId = generateRandomId()
     this.loadingDotsIntervalId = null
-    this.replaceNameInInstructions()
 
     this.initializeElements()
     this.initializeEvents()
     this.initializeGsap()
+    let game = new Game('game-phaser')
+    game.start()
   }
 
   initializeElements () {
@@ -31,7 +33,8 @@ export default class gamePage {
       loading: selectClass('game-loading'),
       loadingDots: selectClass('game-loading-dots'),
       instructions: selectClass('game-instructions'),
-      counters: selectClass('game-counter', true)
+      counters: selectClass('game-counter', true),
+      gameContainer: selectClass('game-container')
     }
     this.$els.splitLoadingDots = new SplitText(this.$els.loadingDots, {type: 'chars'}).chars
   }
@@ -40,9 +43,10 @@ export default class gamePage {
   }
 
   initializeGsap () {
-    TweenMax.set(this.$els.gameSection, {yPercent: 100})
+    // TweenMax.set(this.$els.gameSection, {yPercent: 100})
     TweenMax.set([this.$els.qrcode, this.$els.rule, this.$els.loading], {xPercent: -50, yPercent: -50, autoAlpha: 0})
     TweenMax.set(this.$els.instructions, {yPercent: -50})
+    TweenMax.set(this.$els.gameContainer, {autoAlpha: 1}) // a changer
   }
 
   replaceNameInInstructions () {
@@ -52,6 +56,7 @@ export default class gamePage {
   onEnter () {
     loader.show()
 
+    this.replaceNameInInstructions()
     this.generateQrCode()
     this.connectToSocket()
     this.bindSocketEvents()
@@ -89,21 +94,22 @@ export default class gamePage {
   }
 
   onOrientationReceived (datas) {
-    dbg('receive orientation', datas)
+    // dbg('receive orientation', datas)
   }
 
   onStart () {
     clearInterval(this.loadingDotsIntervalId)
     new TimelineMax()
       .to([this.$els.rule, this.$els.loading, this.$els.qrcode], 0.5, {left: '-100%', ease: Power2.easeOut})
-      .fromTo(this.$els.instructions, 1, {left:'100%'}, {left:'0%', ease: Power2.easeOut})
-      .to(this.$els.instructions, 1, {left:'-100%', ease: Power2.easeIn}, '+=5')
+      .fromTo(this.$els.instructions, 1, {left: '100%'}, {left: '0%', ease: Power2.easeOut})
+      .to(this.$els.instructions, 1, {left: '-100%', ease: Power2.easeIn}, '+=5')
       .to(this.$els.counters[0], 0.5, {left: '50%', ease: Power2.easeIn})
       .to(this.$els.counters[0], 0.5, {left: '-100%', ease: Power2.easeIn}, '+=1')
       .to(this.$els.counters[1], 0.5, {left: '50%', ease: Power2.easeIn})
       .to(this.$els.counters[1], 0.5, {left: '-100%', ease: Power2.easeIn}, '+=1')
       .to(this.$els.counters[2], 0.5, {left: '50%', ease: Power2.easeIn})
       .to(this.$els.counters[2], 0.5, {left: '-100%', ease: Power2.easeIn}, '+=1')
+      .to(this.$els.gameContainer, 0.5, {autoAlpha: 1, ease: Power2.easeIn})
   }
 
   generateQrCode () {
