@@ -58,7 +58,10 @@ webpackConfig.plugins = [
     }
   }),
   new webpack.ProvidePlugin({
-    debug: 'debug'
+    debug: 'debug',
+    PIXI: 'phaser/dist/pixi.min',
+    p2: 'phaser/dist/p2.min',
+    Phaser: 'phaser'
   })
 ]
 
