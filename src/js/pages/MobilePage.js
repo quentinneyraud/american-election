@@ -1,5 +1,5 @@
 import socketIo from 'socket.io-client'
-import {getQueryVariable, selectId} from '../utils/index'
+import {getQueryVariable} from '../utils/index'
 import {QUERY_PARAMETER_NAME, SERVER_URL} from '../config'
 
 const dbg = debug('app:MobilePage')
@@ -70,7 +70,6 @@ export default class MobilePage {
 
   bindSocketEvents () {
     this.socket.on('connect', this.onSocketConnected.bind(this))
-    this.socket.on('room-joined', this.onSocketRoomJoined.bind(this))
     this.socket.on('can-start', this.onStart.bind(this))
     this.socket.on('cut', this.onCut.bind(this))
   }
