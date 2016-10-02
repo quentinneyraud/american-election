@@ -3,13 +3,61 @@
     "name": "trump1",
     "candidat": "trump",
     "type": "head",
-    "image": "./ressources/trump0715.png"
+    "image": "./ressources/trump1.png"
+  },
+  {
+    "name": "trump2",
+    "candidat": "trump",
+    "type": "head",
+    "image": "./ressources/trump2.png"
+  },
+  {
+    "name": "trump3",
+    "candidat": "trump",
+    "type": "head",
+    "image": "./ressources/trump3.png"
+  },
+  {
+    "name": "trump4",
+    "candidat": "trump",
+    "type": "head",
+    "image": "./ressources/trump4.png"
+  },
+  {
+    "name": "trump5",
+    "candidat": "trump",
+    "type": "head",
+    "image": "./ressources/trump5.png"
   },
   {
     "name": "clinton1",
     "candidat": "clinton",
     "type": "head",
-    "image": "./ressources/clinton.png"
+    "image": "./ressources/clinton1.png"
+  },
+  {
+    "name": "clinton2",
+    "candidat": "clinton",
+    "type": "head",
+    "image": "./ressources/clinton2.png"
+  },
+  {
+    "name": "clinton3",
+    "candidat": "clinton",
+    "type": "head",
+    "image": "./ressources/clinton3.png"
+  },
+  {
+    "name": "clinton4",
+    "candidat": "clinton",
+    "type": "head",
+    "image": "./ressources/clinton4.png"
+  },
+  {
+    "name": "clinton5",
+    "candidat": "clinton",
+    "type": "head",
+    "image": "./ressources/clinton5.png"
   },
   {
     "name": "bomb",
@@ -19,6 +67,6 @@
   {
     "name": "particle",
     "type": "particle",
-    "image": "./ressources/bomb.png"
+    "image": "./ressources/particle.png"
   }
 ]
