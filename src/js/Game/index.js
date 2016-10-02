@@ -1,6 +1,7 @@
 import ObjectManager from './ObjectManager'
 import Pointer from './Pointer'
 import ParticleEmitter from './ParticleEmitter'
+import User from './User'
 
 const dbg = debug('app:Game')
 
@@ -12,6 +13,8 @@ export default class Game {
     this.particleEmitter = new ParticleEmitter()
     this.lineToCollisionTest = null
     this.domElement = domElement
+    this.users = {}
+    this.isOnDesktop = false
   }
 
   start () {
@@ -26,6 +29,12 @@ export default class Game {
     this.objectManager.setGame(this.instance)
     this.pointer.setGame(this.instance)
     this.particleEmitter.setGame(this.instance)
+  }
+
+  createTimeline (userName) {
+    this.users.trump = new User('Donald Trump', 40, 'trump')
+    this.users.clinton = new User('Hillary Clinton', 60, 'clinton')
+    this.users.me = new User(userName, 0, 'me')
   }
 
   onPreload () {
@@ -44,14 +53,21 @@ export default class Game {
 
   onUpdate () {
     this.objectManager.onUpdate()
-    this.pointer.addPoint(this.instance.input.x, this.instance.input.y)
+    if (this.isOnDesktop) {
+      this.pointer.addPoint(this.instance.input.x, this.instance.input.y)
+    }
     this.pointer.onUpdate()
 
-    this.pointer.getLastFiveLines().forEach((line) => {
+    this.pointer.getLastLines().forEach((line) => {
       this.lineToCollisionTest = line
-      this.objectManager.heads.forEachExists(this.checkCollision, this)
+      this.objectManager.trumpHeads.forEachExists(this.checkCollision, this)
+      this.objectManager.clintonHeads.forEachExists(this.checkCollision, this)
       this.objectManager.bombs.forEachExists(this.checkCollision, this)
     })
+  }
+
+  onPointerMove (x, y) {
+    this.pointer.addPoint(x, y)
   }
 
   onRender () {
@@ -64,26 +80,17 @@ export default class Game {
 
   setPhysics () {
     this.instance.physics.startSystem(Phaser.Physics.ARCADE)
-    this.instance.physics.arcade.gravity.y = 300
+    this.instance.physics.arcade.gravity.y = 250
   }
 
   checkCollision (sprite) {
     let l1 = new Phaser.Line(sprite.body.right - sprite.width, sprite.body.bottom - sprite.height, sprite.body.right, sprite.body.bottom)
-    /* var l2 = new Phaser.Line(fruit.body.right - fruit.width, fruit.body.bottom, fruit.body.right, fruit.body.bottom-fruit.height)
-     l2.angle = 90*/
+    let l2 = new Phaser.Line(sprite.body.right - sprite.width, sprite.body.bottom, sprite.body.right, sprite.body.bottom - sprite.height)
+    l2.rotate(90)
 
     if (Phaser.Line.intersects(this.lineToCollisionTest, l1, true)
-    /* || Phaser.Line.intersects(line, l2, true)*/) {
-      /* vérifie si c'est pas la ligne d'avant qui hit
-      let contactPoint = new Phaser.Point(0, 0)
-      contactPoint.x = game.input.x;
-      contactPoint.y = game.input.y;
-      var distance = Phaser.Point.distance(contactPoint, new Phaser.Point(fruit.x, fruit.y));
-      if (Phaser.Point.distance(contactPoint, new Phaser.Point(fruit.x, fruit.y)) > 110) {
-        return;
-      }
-      */
-      if (sprite.parent === this.objectManager.heads) {
+     || Phaser.Line.intersects(this.lineToCollisionTest, l2, true)) {
+      if (sprite.parent === this.objectManager.trumpHeads || sprite.parent === this.objectManager.clintonHeads) {
         this.onHeadHit(sprite)
       } else {
         this.onBombHit()
@@ -95,12 +102,20 @@ export default class Game {
     dbg('hit bomb')
 
     this.objectManager.bombs.forEachExists(this.hitObject, this)
-    this.objectManager.heads.forEachExists(this.hitObject, this)
+    this.objectManager.trumpHeads.forEachExists(this.hitObject, this)
+    this.objectManager.clintonHeads.forEachExists(this.hitObject, this)
+    this.users.me.decrementPercentage(10)
+    this.users.trump.incrementPercentage(5)
+    this.users.clinton.incrementPercentage(5)
   }
 
   onHeadHit (sprite) {
-    dbg('hit head')
-
+    if (sprite.data.candidat.indexOf('trump') > -1) {
+      this.users.trump.decrementPercentage()
+    } else {
+      this.users.clinton.decrementPercentage()
+    }
+    this.users.me.incrementPercentage()
     this.hitObject(sprite)
   }
 

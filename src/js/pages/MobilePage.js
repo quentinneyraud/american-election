@@ -10,12 +10,11 @@ export default class MobilePage {
     this.socket = null
     this.roomId = getQueryVariable(QUERY_PARAMETER_NAME)
 
-    this.fixVibrate()
-    this.checkDeviceMotion()
-
     this.initializeElements()
     this.initializeEvents()
     this.initializeGsap()
+    this.xStart = null
+    this.yStart = null
   }
 
   initializeElements () {
@@ -31,26 +30,15 @@ export default class MobilePage {
 
   }
 
-  fixVibrate () {
-    navigator.vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate
-  }
-
-  checkDeviceMotion () {
-    if (!window.DeviceMotionEvent) {
-      // stop
-    }
-  }
-
   onDeviceMotion (event) {
-    const {x, y} = event.acceleration
-
-    this.socket.emit('orientation-to-server', {roomId: this.roomId, motionDatas: {x, y}})
-  }
-
-  vibrate (ms = 15) {
-    if (navigator.vibrate) {
-      navigator.vibrate(ms)
+    if (!this.xStart && !this.yStart) {
+      this.xStart = event.gamma
+      this.yStart = event.beta
     }
+    this.socket.emit('orientation-to-server', {roomId: this.roomId, motionDatas: {
+      x: event.gamma - this.xStart * 10,
+      y: event.beta - this.yStart * 10
+    }})
   }
 
   onEnter () {
@@ -71,7 +59,6 @@ export default class MobilePage {
   bindSocketEvents () {
     this.socket.on('connect', this.onSocketConnected.bind(this))
     this.socket.on('can-start', this.onStart.bind(this))
-    this.socket.on('cut', this.onCut.bind(this))
   }
 
   onSocketConnected () {
@@ -81,14 +68,6 @@ export default class MobilePage {
 
   onStart () {
     dbg('can start')
-    window.addEventListener('devicemotion', this.onDeviceMotion.bind(this))
-  }
-
-  onCut (datas) {
-    if (datas.type === 'bad') {
-      this.vibrate(100)
-    } else {
-      this.vibrate(15)
-    }
+    window.addEventListener('deviceorientation', this.onDeviceMotion.bind(this))
   }
 }

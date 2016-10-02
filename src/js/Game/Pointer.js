@@ -24,17 +24,7 @@ export default class Pointer {
     this.instance.clear()
     this.instance.alpha = 0.5
 
-    this.instance.beginFill(0xFFFFFF)
     this.drawPointerLines()
-    this.instance.endFill()
-
-    /* for(var i = 1; i< this.points.length; i++) {
-      line = new Phaser.Line(this.points[i].x, this.points[i].y, this.points[i-1].x, this.points[i-1].y);
-      game.debug.geom(line);
-
-      good_objects.forEachExists(checkIntersects);
-      bad_objects.forEachExists(checkIntersects);
-    }*/
   }
 
   addPoint (x, y) {
@@ -44,16 +34,22 @@ export default class Pointer {
 
   drawPointerLines () {
     this.instance.moveTo(this.points[0].x, this.points[0].y)
-    this.points.forEach(({x, y}) => {
-      this.instance.lineTo(x, y)
-    })
+    let xArray = this.points.map(element => element.x)
+    let yArray = this.points.map(element => element.y)
+    let x = 1 / (Math.max.apply(null, xArray) - Math.min.apply(null, xArray))
+
+    for (let i = 0; i <= 1; i += x) {
+      let ppx = Phaser.Math.catmullRomInterpolation(xArray, i)
+      let ppy = Phaser.Math.catmullRomInterpolation(yArray, i)
+      this.instance.lineStyle(5, 0x7D26CD, 1)
+      this.instance.lineTo(ppx, ppy)
+    }
   }
 
-  getLastFiveLines () {
+  getLastLines () {
     let lines = []
-    for (let i = 1; i < Math.floor(this.points.length / 2); i++) {
+    for (let i = 1; i < this.points.length / 2; i++) {
       lines.push(new Phaser.Line(this.points[i].x, this.points[i].y, this.points[i - 1].x, this.points[i - 1].y))
-      // game.debug.geom(line);
     }
     return lines
   }

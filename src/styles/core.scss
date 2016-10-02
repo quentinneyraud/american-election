@@ -27,6 +27,7 @@ $cinnabar: Cinnabar, sans-serif;
   *   Resets
   */
   @import '~normalize.css/normalize';
+  @import 'utils/bootstrap_custom';
   @import 'base';
   @import 'general';
 

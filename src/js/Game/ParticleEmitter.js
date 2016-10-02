@@ -14,7 +14,7 @@ export default class ParticleEmitter {
 
   create () {
     this.instance = this.game.add.emitter(0, 0, MAX_PARTICLES)
-    this.instance.makeParticles('parts')
+    this.instance.makeParticles('particle')
     this.instance.gravity = PARTICLES_GRAVITY
     this.instance.setYSpeed(PARTICLES_Y_SPEED_MIN, PARTICLES_Y_SPEED_MAX)
   }

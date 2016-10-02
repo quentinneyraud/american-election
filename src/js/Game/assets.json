@@ -1,12 +1,24 @@
 [
   {
-    "name": "test",
+    "name": "trump1",
+    "candidat": "trump",
     "type": "head",
     "image": "./ressources/trump0715.png"
   },
   {
+    "name": "clinton1",
+    "candidat": "clinton",
+    "type": "head",
+    "image": "./ressources/clinton.png"
+  },
+  {
     "name": "bomb",
     "type": "bomb",
+    "image": "./ressources/bomb.png"
+  },
+  {
+    "name": "particle",
+    "type": "particle",
     "image": "./ressources/bomb.png"
   }
 ]

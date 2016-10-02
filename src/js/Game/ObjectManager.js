@@ -1,7 +1,7 @@
 import {randomInt, randomFloat} from '../utils/index'
 
 const dbg = debug('app:HeadManager')
-const FIRST_THROW_DELAY = 4000
+const FIRST_THROW_DELAY = 5000
 const THROW_RATE_MIN = 0
 const THROW_RATE_MAX = 1000
 
@@ -9,9 +9,11 @@ export default class ObjectManager {
   constructor () {
     dbg('Initialize ObjectManager')
     this.game = null
-    this.heads = null
+    this.trumpHeads = null
+    this.clintonHeads = null
     this.bombs = null
-    this.headNames = []
+    this.trumpHeadNames = []
+    this.clintonHeadNames = []
     this.bombNames = []
     this.nextThrowTime = FIRST_THROW_DELAY
   }
@@ -27,22 +29,27 @@ export default class ObjectManager {
       this.game.load.image(element.name, require(element.image))
 
       if (element.type === 'head') {
-        this.headNames.push(element.name)
-      } else {
+        if (element.candidat === 'trump') {
+          this.trumpHeadNames.push(element.name)
+        } else {
+          this.clintonHeadNames.push(element.name)
+        }
+      } else if (element.type === 'bomb') {
         this.bombNames.push(element.name)
       }
     })
   }
 
   createHeads () {
-    this.heads = this.createGroup(this.headNames)
+    this.trumpHeads = this.createGroup(this.trumpHeadNames, 'trump')
+    this.clintonHeads = this.createGroup(this.clintonHeadNames, 'clinton')
   }
 
   createBombs () {
     this.bombs = this.createGroup(this.bombNames)
   }
 
-  createGroup (cacheKeys) {
+  createGroup (cacheKeys, candidat) {
     const group = this.game.add.group()
     group.enableBody = true
     group.physicsBodyType = Phaser.Physics.ARCADE
@@ -53,13 +60,14 @@ export default class ObjectManager {
       group.create(0, 0, cacheKey, null, false)
     })
 
+    group.setAll('data', {candidat})
     group.setAll('checkWorldBounds', true)
     group.setAll('outOfBoundsKill', true)
     return group
   }
 
   onUpdate () {
-    if (this.game.time.now > this.nextThrowTime && this.heads.countDead() > 0 && this.bombs.countDead() > 0) {
+    if (this.game.time.now > this.nextThrowTime && this.trumpHeads.countDead() > 0 && this.clintonHeads.countDead() > 0 && this.bombs.countDead() > 0) {
       this.nextThrowTime = this.game.time.now + this.getNextThrowDelay()
       this.throwHead()
       if (Math.random() > 0.5) {
@@ -73,7 +81,8 @@ export default class ObjectManager {
   }
 
   throwHead () {
-    this.throwObject(this.heads)
+    this.throwObject(this.trumpHeads)
+    this.throwObject(this.clintonHeads)
   }
 
   throwBomb () {

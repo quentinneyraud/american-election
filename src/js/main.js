@@ -55,9 +55,9 @@ const states = [
   }
 ]
 const start = () => {
-  if (!states.some(element => !element.state)) {
-    loader.hide(onAllAssetsReady)
-  }
+  //if (!states.some(element => !element.state)) {
+  loader.hide(onAllAssetsReady)
+  // }
 }
 
 // wait dom ready
